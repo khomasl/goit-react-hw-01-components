@@ -1,20 +1,26 @@
 import PropTypes from 'prop-types'
-
+import s from './Statistics.module.css'
 export function Statistics({ title, stats }) {
+  const rnd = (min, max) => Math.ceil(Math.random() * (max - min) + min)
+
   const StatsList = ({ stats }) => (
-    <ul className="stat-list">
-      {stats.map((item) => (
-        <li key={item.id} className="item">
-          <span className="label">{item.label}</span>
-          <span className="percentage">{item.percentage}</span>
-        </li>
-      ))}
+    <ul className={s.stat_list}>
+      {stats.map((item) => {
+        const rndColor = `rgb(${rnd(50, 255)},${rnd(50, 255)},${rnd(50, 255)})`
+        const styleLi = { backgroundColor: rndColor }
+        return (
+          <li key={item.id} className={s.item} style={styleLi}>
+            <span className={s.label}>{item.label}</span>
+            <span className={s.percentage}>{item.percentage}%</span>
+          </li>
+        )
+      })}
     </ul>
   )
 
   return (
-    <section className="statistics">
-      {title !== undefined && <h2 className="title">2. Upload stats</h2>}
+    <section className={s.statistics}>
+      {title !== undefined && <h2 className={s.title}>2. Upload stats</h2>}
       <StatsList stats={stats} />
     </section>
   )
